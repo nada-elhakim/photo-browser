@@ -1,20 +1,26 @@
 import React, {Component} from "react";
-import {Image, Text, StyleSheet, View} from "react-native";
+import {Text, StyleSheet, View} from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import AppContext from "../../context/AppContext";
 import Button from "../../theme/components/Button/Button";
 import Colors from "../../theme/variables/Colors";
 import Metrics from "../../theme/variables/Metrics";
+import ResponsiveImage from "../../theme/components/ResponsiveImage/ResponsiveImage";
+
 
 class PhotoListItem extends Component {
     render() {
         const {photo: {photo}} = this.props;
         return (
-            <Swipeable renderRightActions={this.renderRightActions}>
-                <View style={styles.row}>
-                    <Image source={{uri: photo.uri}} style={{height: photo.height}}/>
-                </View>
-            </Swipeable>
+            <View style={styles.row}>
+                <Swipeable renderRightActions={this.renderRightActions}>
+                    <ResponsiveImage
+                        width={Metrics.windowWidth}
+                        source={{uri: photo.uri}} />
+                </Swipeable>
+            </View>
+
+
         );
     }
 

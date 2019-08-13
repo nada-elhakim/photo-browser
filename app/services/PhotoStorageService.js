@@ -11,7 +11,15 @@ class PhotoStorageService {
     async loadPhotos() {
         try {
             const myContainer = await AsyncStorage.getItem('myContainer');
-            return myContainer ? JSON.parse(myContainer): [];
+            return myContainer ? JSON.parse(myContainer): [
+                {
+                    id: 1,
+                    photo: {
+                        uri: 'https://sugarfreelondoner.com/wp-content/uploads/2019/05/sugar-free-milk-chocolate.jpg',
+                        width: 496,
+                        height: 662
+                    }}
+            ];
         } catch (error) {
             console.log(error);
         }

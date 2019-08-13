@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {View, Image, Text, FlatList, ActivityIndicator} from "react-native";
 import Button from "../../theme/components/Button/Button";
 import AppContext from "../../context/AppContext";
@@ -18,12 +18,12 @@ const NoPhotosMessage = ({addPhoto}) => {
     )
 };
 
-class MyPhotos extends React.Component {
+class MyPhotos extends Component {
     static navigationOptions = ({ navigation }) => {
         return {
             title: 'My Photos',
             headerRight: (
-                <Button transparent={true} buttonStyle={{paddingHorizontal: 16}} onPress={navigation.getParam('addPhoto')}>
+                <Button transparent={true} buttonStyle={{paddingHorizontal: Metrics.defaultPadding}} onPress={navigation.getParam('addPhoto')}>
                     <Image source={require('../../assets/img/plus.png')} style={{width: 24, height: 24}}/>
                 </Button>
             )

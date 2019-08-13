@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
-import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 import Button from "../../theme/components/Button/Button";
 import {RNCamera} from 'react-native-camera';
 import AppContext from "../../context/AppContext";
 import AppStyles from "../../theme/styles/AppStyles";
 import Metrics from "../../theme/variables/Metrics";
 import Colors from "../../theme/variables/Colors";
+import ResponsiveImage from "../../theme/components/ResponsiveImage/ResponsiveImage";
 
 class AddPhoto extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -40,14 +41,10 @@ class AddPhoto extends React.Component {
                 </Button>
 
                 {this.state.photo && <Fragment>
-                    <Image source={{uri: this.state.photo.uri}}
-                           style={[
-                               styles.capturedImage,
-                               {
-                                   height: this.state.photo.height,
-                                   width: this.state.photo.width - Metrics.defaultMargin * 2
-                               }
-                           ]}/>
+                    <ResponsiveImage
+                        style={styles.capturedImage}
+                        source={{uri: this.state.photo.uri}}
+                        width={Metrics.windowWidth - Metrics.defaultMargin * 2}/>
                     <Button onPress={this._uploadPhoto}>
                         <Text>Upload photo</Text>
                     </Button>
@@ -109,10 +106,9 @@ class AddPhoto extends React.Component {
     _takePicture = async() => {
         if (this.camera && this.cameraStatus === RNCamera.Constants.CameraStatus.READY) {
             const options = {
-                width: Metrics.windowWidth,
+                quality: 0.7,
             };
             const data = await this.camera.takePictureAsync(options);
-            console.log(data);
             this.setState({showCamera: false, photo: data});
         }
     };
