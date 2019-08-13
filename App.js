@@ -28,7 +28,6 @@ class App extends Component {
     deletePhoto(photo) {
         const filteredPhotos = this.state.myPhotos.filter(savedPhoto => savedPhoto.id !== photo.id);
         this.setState({myPhotos: filteredPhotos});
-        console.log(filteredPhotos);
         this.photoStorageService.savePhotos(filteredPhotos);
     }
 

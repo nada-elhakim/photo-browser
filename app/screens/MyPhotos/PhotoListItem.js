@@ -8,11 +8,11 @@ import Metrics from "../../theme/variables/Metrics";
 
 class PhotoListItem extends Component {
     render() {
-        const {photo} = this.props;
+        const {photo: {photo}} = this.props;
         return (
             <Swipeable renderRightActions={this.renderRightActions}>
                 <View style={styles.row}>
-                    <Image source={{uri: photo.uri}} style={styles.imageStyle}/>
+                    <Image source={{uri: photo.uri}} style={{height: photo.height}}/>
                 </View>
             </Swipeable>
         );
@@ -45,10 +45,6 @@ PhotoListItem.contextType = AppContext;
 export default PhotoListItem;
 
 const styles = StyleSheet.create({
-    imageStyle: {
-        flex: 1,
-        height: 300,
-    },
     deleteAction: {
         width: 200,
         backgroundColor: Colors.dangerDark

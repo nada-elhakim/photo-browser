@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
 import Button from "../../theme/components/Button/Button";
 import {RNCamera} from 'react-native-camera';
 import AppContext from "../../context/AppContext";
@@ -17,13 +17,8 @@ class AddPhoto extends React.Component {
 
     state = {
         showCamera: false,
-        photoUri: null,
-        cameraStatus: true
+        photo: null,
     };
-
-    componentDidMount() {
-
-    }
 
     render() {
         return (
@@ -39,18 +34,25 @@ class AddPhoto extends React.Component {
 
     renderUploadPhotoView() {
         return (
-            <View style={[AppStyles.container]}>
+            <ScrollView contentContainerStyle={[AppStyles.container, {paddingBottom: 30}]}>
                 <Button onPress={this._openCamera}>
                     <Text>Take photo</Text>
                 </Button>
 
-                {this.state.photoUri && <Fragment>
-                    <Image resizeMode={'contain'} source={{uri: this.state.photoUri}} style={styles.capturedImage}/>
+                {this.state.photo && <Fragment>
+                    <Image source={{uri: this.state.photo.uri}}
+                           style={[
+                               styles.capturedImage,
+                               {
+                                   height: this.state.photo.height,
+                                   width: this.state.photo.width - Metrics.defaultMargin * 2
+                               }
+                           ]}/>
                     <Button onPress={this._uploadPhoto}>
                         <Text>Upload photo</Text>
                     </Button>
                 </Fragment>}
-            </View>
+            </ScrollView>
         );
     }
 
@@ -58,26 +60,23 @@ class AddPhoto extends React.Component {
             return (
                 <View style={styles.cameraContainer}>
                     <RNCamera
-                        ref={ref => {
-                            this.camera = ref;
-                        }}
-                        notAuthorizedView={(
-                            <View style={{flex: 1, marginTop: 60}}>
-                                <Text style={styles.noPermissionText}>No camera permission</Text>
-                            </View>
-                        )}
+                        notAuthorizedView={this.renderNoCameraPermission()}
                         captureAudio={false}
-                        onCameraReady={this._onCameraReady}
-                        onStatusChange={this._cameraStatusChanged}
                         style={styles.preview}
                         type={RNCamera.Constants.Type.back}
-
                         androidCameraPermissionOptions={{
                             title: 'Permission to use camera',
                             message: 'We need your permission to use your camera',
                             buttonPositive: 'Ok',
                             buttonNegative: 'Cancel',
-                        }} />
+                        }}>
+                        {
+                            ({camera, status}) => {
+                                this.camera = camera;
+                                this.cameraStatus = status;
+                            }
+                        }
+                    </RNCamera>
                     <View style={styles.cameraButtons}>
                         <Button buttonStyle={styles.captureButton} onPress={this._takePicture}>
                             <Image style={styles.captureImg} source={require('../../assets/img/camera.png')}/>
@@ -91,15 +90,13 @@ class AddPhoto extends React.Component {
 
     }
 
-    _cameraStatusChanged = (status) => {
-        console.log(status);
-        this.setState({cameraStatus: status});
-    };
-
-    _onCameraReady = () => {
-        console.log('ready');
-        this.setState({cameraStatus: 'READY'});
-    };
+    renderNoCameraPermission() {
+        return (
+            <View style={{flex: 1, marginTop: 60}}>
+                <Text style={styles.noPermissionText}>No camera permission</Text>
+            </View>
+        )
+    }
 
     _openCamera = () => {
         this.setState({showCamera: true});
@@ -110,17 +107,20 @@ class AddPhoto extends React.Component {
     };
 
     _takePicture = async() => {
-        if (this.camera) {
-            const options = { quality: 0.5 };
+        if (this.camera && this.cameraStatus === RNCamera.Constants.CameraStatus.READY) {
+            const options = {
+                width: Metrics.windowWidth,
+            };
             const data = await this.camera.takePictureAsync(options);
-            this.setState({showCamera: false, photoUri: data.uri});
+            console.log(data);
+            this.setState({showCamera: false, photo: data});
         }
     };
 
     _uploadPhoto = () => {
         this.context.uploadPhoto({
             id: Date.now(),
-            uri: this.state.photoUri
+            photo: this.state.photo
         });
         this.props.navigation.goBack();
     };
@@ -162,9 +162,7 @@ const styles = StyleSheet.create({
         height: 20
     },
     capturedImage: {
-        marginVertical: Metrics.defaultMargin,
-        flex: 1,
-        height: undefined
+        marginVertical: Metrics.defaultMargin
     },
     cameraButtons: {
         flexDirection: 'row',
