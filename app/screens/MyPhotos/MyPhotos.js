@@ -18,13 +18,24 @@ const NoPhotosMessage = ({addPhoto}) => {
     )
 };
 
+const Loading = () => {
+    return (
+        <View style={[AppStyles.container, AppStyles.center]}>
+            <ActivityIndicator color={Colors.light} />
+        </View>
+    )
+};
+
 class MyPhotos extends Component {
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({navigation}) => {
         return {
-            title: 'My Photos',
+            title: "My Photos",
             headerRight: (
-                <Button transparent={true} buttonStyle={{paddingHorizontal: Metrics.defaultPadding}} onPress={navigation.getParam('addPhoto')}>
-                    <Image source={require('../../assets/img/plus.png')} style={{width: 24, height: 24}}/>
+                <Button
+                    transparent
+                    buttonStyle={{paddingHorizontal: Metrics.defaultPadding}}
+                    onPress={navigation.getParam("addPhoto")}>
+                    <Image source={require("../../assets/img/plus.png")} style={{width: 24, height: 24}}/>
                 </Button>
             )
         }
@@ -32,24 +43,22 @@ class MyPhotos extends Component {
 
     componentDidMount() {
         this.context.loadPhotos();
-        this.props.navigation.setParams({ addPhoto: this._addPhoto });
+        this.props.navigation.setParams({addPhoto: this.addPhoto.bind(this)});
     }
 
     render() {
         const {myPhotos} = this.context;
+        console.log(myPhotos);
+
         if (!myPhotos) {
-            return (
-                <View style={[AppStyles.container, AppStyles.center]}>
-                    <ActivityIndicator color={Colors.light} />
-                </View>
-            );
+            return <Loading/>
         }
         return (
             <View style={[AppStyles.container, {padding: 0}]}>
                 <FlatList
                     data={myPhotos}
-                    keyExtractor={this._keyExtractor}
-                    ListEmptyComponent={<NoPhotosMessage addPhoto={this._addPhoto}/>}
+                    keyExtractor={(item) => item.id.toString()}
+                    ListEmptyComponent={<NoPhotosMessage addPhoto={this.addPhoto.bind(this)}/>}
                     renderItem={({item}) => <PhotoListItem photo={item}/>}
                 />
             </View>
@@ -57,11 +66,9 @@ class MyPhotos extends Component {
         )
     }
 
-    _addPhoto = () => {
-        this.props.navigation.navigate('AddPhoto');
-    };
-
-    _keyExtractor = (item) => item.id.toString();
+    addPhoto() {
+        this.props.navigation.navigate("AddPhoto");
+    }
 }
 
 export default MyPhotos;

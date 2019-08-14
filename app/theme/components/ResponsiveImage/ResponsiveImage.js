@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image} from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import PropTypes from 'prop-types';
 
 class ResponsiveImage extends Component {
     state = {
@@ -56,3 +57,9 @@ class ResponsiveImage extends Component {
 }
 
 export default ResponsiveImage;
+
+ResponsiveImage.propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number
+};
+

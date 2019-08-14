@@ -7,43 +7,39 @@ import Colors from "../../theme/variables/Colors";
 import Metrics from "../../theme/variables/Metrics";
 import ResponsiveImage from "../../theme/components/ResponsiveImage/ResponsiveImage";
 
-
 class PhotoListItem extends Component {
     render() {
         const {photo: {photo}} = this.props;
         return (
             <View style={styles.row}>
-                <Swipeable renderRightActions={this.renderRightActions}>
+                <Swipeable renderRightActions={this.renderRightActions.bind(this)}>
                     <ResponsiveImage
                         width={Metrics.windowWidth}
                         source={{uri: photo.uri}} />
                 </Swipeable>
             </View>
-
-
         );
     }
 
-    renderRightActions = () => {
+    renderRightActions() {
         return (
             <View style={styles.deleteAction}>
                 <Button
                     buttonStyle={{
-                        height: '100%'
+                        height: "100%"
                     }}
                     transparent
-                    onPress={this._deletePhoto}>
+                    onPress={this.deletePhoto.bind(this)}>
                     <Text style={{color: Colors.light}}>Delete</Text>
                 </Button>
             </View>
         );
-    };
+    }
 
-    _deletePhoto = () => {
+    deletePhoto() {
         const {photo} = this.props;
         this.context.deletePhoto(photo);
-    };
-
+    }
 }
 
 PhotoListItem.contextType = AppContext;

@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator({
     },
     AddPhoto: AddPhoto
 }, {
-    mode: 'modal',
+    mode: "modal",
 });
 
 export default createAppContainer(AppNavigator);

@@ -10,27 +10,16 @@ import {
 } from "react-native";
 import Colors from "../../variables/Colors";
 import Metrics from "../../variables/Metrics";
+import PropTypes from "prop-types";
 
 class Button extends Component {
     static defaultProps = {
-        TouchableComponent:  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity,
-        title: 'Button',
-        onPress: () => console.log('Please attach a method to this component'),
+        TouchableComponent:  Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity,
+        onPress: () => console.log("Please attach a method to this component"),
         disabled: false,
         loading: false,
         transparent: false
     };
-
-    componentDidMount() {
-        const { linearGradientProps, ViewComponent } = this.props;
-        if (linearGradientProps && !global.Expo && !ViewComponent) {
-            /* eslint-disable no-console */
-            console.error(
-                `You need to pass a ViewComponent to use linearGradientProps 
-                !\nExample: ViewComponent={require('react-native-linear-gradient')}`
-            );
-        }
-    }
 
     render() {
         const {
@@ -38,13 +27,8 @@ class Button extends Component {
             containerStyle,
             buttonStyle,
             disabledStyle,
-            title,
-            titleStyle,
-            titleProps,
-            onPress,
             disabled,
             headerButton,
-            disabledTitleStyle,
             loading,
             transparent,
             small,
@@ -57,9 +41,8 @@ class Button extends Component {
                 <TouchableComponent
                     onPress={this.onButtonPress.bind(this)}
                     disabled={disabled}
-                    underlayColor={transparent ? 'transparent' : Colors.buttonUnderlayColor}
-                    activeOpacity={transparent ? 0.2 : undefined}
-                >
+                    underlayColor={transparent ? "transparent" : Colors.buttonUnderlayColor}
+                    activeOpacity={transparent ? 0.2 : undefined}>
                     <ViewComponent
                         style={[
                             styles.button,
@@ -67,10 +50,9 @@ class Button extends Component {
                             buttonStyle,
                             disabled && styles.disabled,
                             disabled && disabledStyle,
-                            headerButton && { backgroundColor: 'transparent', height: undefined },
-                            transparent && { backgroundColor: 'transparent', elevation: 0 },
-                        ]}
-                    >
+                            headerButton && { backgroundColor: "transparent", height: undefined },
+                            transparent && { backgroundColor: "transparent", elevation: 0 },
+                        ]}>
                         {children}
                         {loading && <ActivityIndicator color={Colors.white} style={styles.indicatorStyle}/>}
                     </ViewComponent>
@@ -90,16 +72,26 @@ class Button extends Component {
 
 export default Button;
 
+Button.propTypes = {
+    transparent: PropTypes.bool,
+    disabled: PropTypes.bool,
+    headerButton: PropTypes.bool,
+    loading: PropTypes.bool,
+    onPress: PropTypes.func.isRequired,
+    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    buttonStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
+
 
 const styles = StyleSheet.create({
     button: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: "center",
         height: Metrics.buttonHeight,
-        alignItems: 'center',
+        alignItems: "center",
         borderRadius: Metrics.buttonBorderRadius,
         backgroundColor: Colors.light,
-        position: 'relative'
+        position: "relative"
     },
     disabled: {
         backgroundColor: Colors.primary,
@@ -108,10 +100,10 @@ const styles = StyleSheet.create({
         color: Colors.buttonTransparentTitleColor
     },
     title: {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         color: Colors.buttonTitleColor,
         fontSize: 16,
-        textAlign: 'center',
+        textAlign: "center",
         padding: 8
     },
     disabledTitle: {
@@ -121,10 +113,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     indicatorStyle: {
-        position: 'absolute',
+        position: "absolute",
         right: 16,
         top: Metrics.buttonHeight / 3.5
     }
-
 });
 
