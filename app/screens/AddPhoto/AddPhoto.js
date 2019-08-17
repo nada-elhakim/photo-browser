@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, {Fragment} from "react";
 import AppContext from "../../context/AppContext";
 import CameraView from "./CameraView";
 import PhotoUpload from "./PhotoUpload";
@@ -13,7 +13,7 @@ class AddPhoto extends React.Component {
 
     state = {
         showCamera: false,
-        photo: null,
+        photo: null
     };
 
     render() {
@@ -43,15 +43,16 @@ class AddPhoto extends React.Component {
     }
 
     uploadPhoto() {
-        this.context.uploadPhoto({
-            id: Date.now(),
-            photo: this.state.photo
-        });
+        this.context.uploadPhoto(this.state.photo);
         this.props.navigation.goBack();
     }
 
     onPictureTaken(data) {
-        this.setState({showCamera: false, photo: data});
+        const photo = {
+            id: Date.now(),
+            photo: data
+        };
+        this.setState({showCamera: false, photo});
     }
 }
 

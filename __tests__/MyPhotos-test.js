@@ -3,8 +3,7 @@ import React from "react";
 import {FlatList} from "react-native";
 import MyPhotos, {Loading} from "../app/screens/MyPhotos/MyPhotos";
 import AppContext from "../app/context/AppContext";
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
 
 describe('<MyPhotos />', () => {
     let props;

@@ -18,7 +18,7 @@ const PhotoUpload = ({photo, onUploadPressed, onOpenCameraPressed}) => {
                     <Fragment>
                         <ResponsiveImage
                             style={{marginVertical: Metrics.defaultMargin}}
-                            source={{uri: photo.uri}}
+                            source={{uri: photo.photo.uri}}
                             width={Metrics.windowWidth - Metrics.defaultMargin * 2}/>
                         <Button onPress={onUploadPressed}>
                             <Text>Upload photo</Text>
