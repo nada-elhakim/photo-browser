@@ -1,4 +1,8 @@
 import MockAsyncStorage from 'mock-async-storage';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+const { JSDOM } = require("jsdom");
+
 const mockImpl = new MockAsyncStorage();
 
 jest.mock('@react-native-community/async-storage', () => mockImpl);
@@ -7,10 +11,22 @@ jest.mock('react-native-gesture-handler/Swipeable', () => 'Swipeable');
 
 jest.mock('react-native-camera', () => {});
 
-// jest.doMock('./app/context/AppContext', () => {
-//     return {
-//         LocalizeContext: {
-//             Consumer: (props) => props.children(context)
-//         }
-//     }
-// });
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const { window } = jsdom;
+
+function copyProps(src, target) {
+    Object.defineProperties(target, {
+        ...Object.getOwnPropertyDescriptors(src),
+        ...Object.getOwnPropertyDescriptors(target),
+    });
+}
+
+global.window = window;
+global.document = window.document;
+global.navigator = {
+    userAgent: 'node.js',
+};
+copyProps(window, global);
+
+
+Enzyme.configure({ adapter: new Adapter() });

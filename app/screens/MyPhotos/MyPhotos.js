@@ -7,7 +7,7 @@ import AppStyles from "../../theme/styles/AppStyles";
 import Metrics from "../../theme/variables/Metrics";
 import Colors from "../../theme/variables/Colors";
 
-const NoPhotosMessage = ({addPhoto}) => {
+export const NoPhotosMessage = ({addPhoto}) => {
     return (
         <View style={[AppStyles.center, {paddingVertical: Metrics.defaultPadding}]}>
             <Text style={{marginBottom: Metrics.defaultMargin}}>You haven't added any photos yet.</Text>
@@ -18,7 +18,7 @@ const NoPhotosMessage = ({addPhoto}) => {
     )
 };
 
-const Loading = () => {
+export const Loading = () => {
     return (
         <View style={[AppStyles.container, AppStyles.center]}>
             <ActivityIndicator color={Colors.light} />
@@ -27,6 +27,8 @@ const Loading = () => {
 };
 
 class MyPhotos extends Component {
+    static contextType = AppContext;
+
     static navigationOptions = ({navigation}) => {
         return {
             title: "My Photos",
@@ -49,9 +51,9 @@ class MyPhotos extends Component {
     render() {
         const {myPhotos} = this.context;
 
-        // if (!myPhotos) {
-        //     return <Loading/>
-        // }
+        if (!myPhotos) {
+            return <Loading/>
+        }
 
         return (
             <View style={[AppStyles.container, {padding: 0}]}>
@@ -62,7 +64,6 @@ class MyPhotos extends Component {
                     renderItem={({item}) => <PhotoListItem photo={item}/>}
                 />
             </View>
-
         )
     }
 
@@ -70,8 +71,6 @@ class MyPhotos extends Component {
         this.props.navigation.navigate("AddPhoto");
     }
 }
-
-MyPhotos.contextType = AppContext;
 
 export default MyPhotos;
 
