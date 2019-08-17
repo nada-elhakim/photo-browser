@@ -48,11 +48,11 @@ class MyPhotos extends Component {
 
     render() {
         const {myPhotos} = this.context;
-        console.log(myPhotos);
 
-        if (!myPhotos) {
-            return <Loading/>
-        }
+        // if (!myPhotos) {
+        //     return <Loading/>
+        // }
+
         return (
             <View style={[AppStyles.container, {padding: 0}]}>
                 <FlatList
@@ -71,6 +71,7 @@ class MyPhotos extends Component {
     }
 }
 
+MyPhotos.contextType = AppContext;
+
 export default MyPhotos;
 
-MyPhotos.contextType = AppContext;
