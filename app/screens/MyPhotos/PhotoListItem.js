@@ -1,13 +1,15 @@
-import React, {Component} from "react";
-import {Text, StyleSheet, View} from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
-import AppContext from "../../context/AppContext";
-import Button from "../../theme/components/Button/Button";
-import Colors from "../../theme/variables/Colors";
-import Metrics from "../../theme/variables/Metrics";
-import ResponsiveImage from "../../theme/components/ResponsiveImage/ResponsiveImage";
+import React, {Component} from 'react';
+import {Text, StyleSheet, View} from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import AppContext from '../../context/AppContext';
+import Button from '../../theme/components/Button/Button';
+import Colors from '../../theme/variables/Colors';
+import Metrics from '../../theme/variables/Metrics';
+import ResponsiveImage from '../../theme/components/ResponsiveImage/ResponsiveImage';
 
 class PhotoListItem extends Component {
+    static contextType = AppContext;
+
     render() {
         const {photo: {photo}} = this.props;
         return (
@@ -26,7 +28,7 @@ class PhotoListItem extends Component {
             <View style={styles.deleteAction}>
                 <Button
                     buttonStyle={{
-                        height: "100%"
+                        height: '100%',
                     }}
                     transparent
                     onPress={this.deletePhoto.bind(this)}>
@@ -42,19 +44,17 @@ class PhotoListItem extends Component {
     }
 }
 
-PhotoListItem.contextType = AppContext;
-
 export default PhotoListItem;
 
 const styles = StyleSheet.create({
     deleteAction: {
         width: 200,
-        backgroundColor: Colors.dangerDark
+        backgroundColor: Colors.dangerDark,
     },
     row: {
         backgroundColor: Colors.white,
         paddingVertical: Metrics.defaultPadding,
         borderBottomColor: Colors.highlight,
-        borderBottomWidth: 1
-    }
+        borderBottomWidth: 1,
+    },
 });

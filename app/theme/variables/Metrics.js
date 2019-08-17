@@ -1,9 +1,9 @@
-import {Dimensions} from "react-native";
+import {Dimensions} from 'react-native';
 
 export default {
     // Window
-    windowHeight: Dimensions.get("window").height,
-    windowWidth: Dimensions.get("window").width,
+    windowHeight: Dimensions.get('window').height,
+    windowWidth: Dimensions.get('window').width,
 
     // General
     defaultMargin: 16,
@@ -14,4 +14,4 @@ export default {
     buttonBorderRadius: 8,
     buttonHeight: 50,
     buttonSmallHeight: 40,
-}
+};

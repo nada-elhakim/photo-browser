@@ -1,11 +1,11 @@
-import React, {Component} from "react";
-import {View, Image, Text, FlatList, ActivityIndicator} from "react-native";
-import Button from "../../theme/components/Button/Button";
-import AppContext from "../../context/AppContext";
-import PhotoListItem from "./PhotoListItem";
-import AppStyles from "../../theme/styles/AppStyles";
-import Metrics from "../../theme/variables/Metrics";
-import Colors from "../../theme/variables/Colors";
+import React, {Component} from 'react';
+import {View, Image, Text, FlatList, ActivityIndicator} from 'react-native';
+import Button from '../../theme/components/Button/Button';
+import AppContext from '../../context/AppContext';
+import PhotoListItem from './PhotoListItem';
+import AppStyles from '../../theme/styles/AppStyles';
+import Metrics from '../../theme/variables/Metrics';
+import Colors from '../../theme/variables/Colors';
 
 export const NoPhotosMessage = ({addPhoto}) => {
     return (
@@ -15,7 +15,7 @@ export const NoPhotosMessage = ({addPhoto}) => {
                 <Text>Add photo</Text>
             </Button>
         </View>
-    )
+    );
 };
 
 export const Loading = () => {
@@ -23,7 +23,7 @@ export const Loading = () => {
         <View style={[AppStyles.container, AppStyles.center]}>
             <ActivityIndicator color={Colors.light} />
         </View>
-    )
+    );
 };
 
 class MyPhotos extends Component {
@@ -31,16 +31,16 @@ class MyPhotos extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            title: "My Photos",
+            title: 'My Photos',
             headerRight: (
                 <Button
                     transparent
                     buttonStyle={{paddingHorizontal: Metrics.defaultPadding}}
-                    onPress={navigation.getParam("addPhoto")}>
-                    <Image source={require("../../assets/img/plus.png")} style={{width: 24, height: 24}}/>
+                    onPress={navigation.getParam('addPhoto')}>
+                    <Image source={require('../../assets/img/plus.png')} style={{width: 24, height: 24}}/>
                 </Button>
-            )
-        }
+            ),
+        };
     };
 
     componentDidMount() {
@@ -52,7 +52,7 @@ class MyPhotos extends Component {
         const {myPhotos} = this.context;
 
         if (!myPhotos) {
-            return <Loading/>
+            return <Loading/>;
         }
 
         return (
@@ -64,11 +64,11 @@ class MyPhotos extends Component {
                     renderItem={({item}) => <PhotoListItem photo={item}/>}
                 />
             </View>
-        )
+        );
     }
 
     addPhoto() {
-        this.props.navigation.navigate("AddPhoto");
+        this.props.navigation.navigate('AddPhoto');
     }
 }
 

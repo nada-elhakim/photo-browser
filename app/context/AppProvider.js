@@ -1,10 +1,10 @@
-import React, {Component} from "react";
-import PhotoStorageService from "../services/PhotoStorageService";
-import AppContext from "./AppContext";
+import React, {Component} from 'react';
+import PhotoStorageService from '../services/PhotoStorageService';
+import AppContext from './AppContext';
 
 class AppProvider extends Component {
     state = {
-        myPhotos: null
+        myPhotos: null,
     };
 
     photoStorageService = new PhotoStorageService();
@@ -34,12 +34,12 @@ class AppProvider extends Component {
                     myPhotos: this.state.myPhotos,
                     loadPhotos: this.loadPhotos.bind(this),
                     uploadPhoto: this.uploadPhoto.bind(this),
-                    deletePhoto: this.deletePhoto.bind(this)
+                    deletePhoto: this.deletePhoto.bind(this),
                 }}
             >
                 {this.props.children}
             </AppContext.Provider>
-        )
+        );
     }
 }
 

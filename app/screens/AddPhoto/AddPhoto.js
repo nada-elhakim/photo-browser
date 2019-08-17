@@ -1,19 +1,21 @@
-import React, {Fragment} from "react";
-import AppContext from "../../context/AppContext";
-import CameraView from "./CameraView";
-import PhotoUpload from "./PhotoUpload";
+import React, {Fragment} from 'react';
+import AppContext from '../../context/AppContext';
+import CameraView from './CameraView';
+import PhotoUpload from './PhotoUpload';
 
 class AddPhoto extends React.Component {
+    static contextType = AppContext;
+
     static navigationOptions = ({ navigation }) => {
         return {
-            title: "Add Photo",
-            headerTintColor: "black"
-        }
+            title: 'Add Photo',
+            headerTintColor: 'black',
+        };
     };
 
     state = {
         showCamera: false,
-        photo: null
+        photo: null,
     };
 
     render() {
@@ -31,7 +33,7 @@ class AddPhoto extends React.Component {
                             onOpenCameraPressed={this.openCamera.bind(this)}/>
                 }
             </Fragment>
-        )
+        );
     }
 
     openCamera() {
@@ -50,13 +52,10 @@ class AddPhoto extends React.Component {
     onPictureTaken(data) {
         const photo = {
             id: Date.now(),
-            photo: data
+            photo: data,
         };
         this.setState({showCamera: false, photo});
     }
 }
 
 export default AddPhoto;
-
-AddPhoto.contextType = AppContext;
-

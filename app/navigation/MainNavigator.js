@@ -1,9 +1,9 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
-import MyPhotos from "../screens/MyPhotos/MyPhotos";
-import AddPhoto from "../screens/AddPhoto/AddPhoto";
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import MyPhotos from '../screens/MyPhotos/MyPhotos';
+import AddPhoto from '../screens/AddPhoto/AddPhoto';
 
 const MainStack = createStackNavigator({
-    MyPhotos: MyPhotos
+    MyPhotos: MyPhotos,
 });
 
 const AppNavigator = createStackNavigator({
@@ -11,12 +11,12 @@ const AppNavigator = createStackNavigator({
         screen: MainStack,
         navigationOptions: {
             header: null,
-            headerBackTitle: null
-        }
+            headerBackTitle: null,
+        },
     },
-    AddPhoto: AddPhoto
+    AddPhoto: AddPhoto,
 }, {
-    mode: "modal",
+    mode: 'modal',
 });
 
 export default createAppContainer(AppNavigator);

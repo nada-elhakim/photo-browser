@@ -1,17 +1,17 @@
-import React, {Component} from "react";
-import {RNCamera} from "react-native-camera";
-import {Image, StyleSheet, Text, View} from "react-native";
-import Button from "../../theme/components/Button/Button";
-import Metrics from "../../theme/variables/Metrics";
-import Colors from "../../theme/variables/Colors";
-import PropTypes from "prop-types";
+import React, {Component} from 'react';
+import {RNCamera} from 'react-native-camera';
+import {Image, StyleSheet, Text, View} from 'react-native';
+import Button from '../../theme/components/Button/Button';
+import Metrics from '../../theme/variables/Metrics';
+import Colors from '../../theme/variables/Colors';
+import PropTypes from 'prop-types';
 
 const NoCameraPermission = () => {
     return (
-        <View style={{flex: 1, marginTop: 60}}>
+        <View style={styles.noPermissionContainer}>
             <Text style={styles.noPermissionText}>No camera permission</Text>
         </View>
-    )
+    );
 };
 
 class CameraView extends Component {
@@ -25,10 +25,10 @@ class CameraView extends Component {
                     style={styles.preview}
                     type={RNCamera.Constants.Type.back}
                     androidCameraPermissionOptions={{
-                        title: "Permission to use camera",
-                        message: "We need your permission to use your camera",
-                        buttonPositive: "Ok",
-                        buttonNegative: "Cancel",
+                        title: 'Permission to use camera',
+                        message: 'We need your permission to use your camera',
+                        buttonPositive: 'Ok',
+                        buttonNegative: 'Cancel',
                     }}>
                     {
                         ({camera, status}) => {
@@ -39,14 +39,14 @@ class CameraView extends Component {
                 </RNCamera>
                 <View style={styles.cameraButtons}>
                     <Button buttonStyle={styles.captureButton} onPress={this.takePicture.bind(this)}>
-                        <Image style={styles.captureImg} source={require("../../assets/img/camera.png")}/>
+                        <Image style={styles.captureImg} source={require('../../assets/img/camera.png')}/>
                     </Button>
                     <Button buttonStyle={styles.closeButton} onPress={onClosePressed}>
-                        <Image style={styles.closeImg} source={require("../../assets/img/close.png")}/>
+                        <Image style={styles.closeImg} source={require('../../assets/img/close.png')}/>
                     </Button>
                 </View>
             </View>
-        )
+        );
     }
 
     async takePicture() {
@@ -65,19 +65,19 @@ export default CameraView;
 
 CameraView.propTypes = {
     onPictureTaken: PropTypes.func,
-    onClosePressed: PropTypes.func
+    onClosePressed: PropTypes.func,
 };
 
 
 const styles = StyleSheet.create({
     cameraContainer: {
         flex: 1,
-        flexDirection: "column",
-        backgroundColor: "black",
+        flexDirection: 'column',
+        backgroundColor: 'black',
     },
     preview: {
         flex: 1,
-        alignItems: "center",
+        alignItems: 'center',
         paddingBottom: Metrics.defaultPadding,
     },
     captureButton: {
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
         width: 60,
         borderRadius: 30,
         marginEnd: Metrics.defaultMargin,
-        marginLeft: 40 + Metrics.defaultMargin
+        marginLeft: 40 + Metrics.defaultMargin,
     },
     captureImg: {
         width: 30,
-        height: 30
+        height: 30,
     },
     closeButton: {
         height: 40,
@@ -98,20 +98,24 @@ const styles = StyleSheet.create({
     },
     closeImg: {
         width: 20,
-        height: 20
+        height: 20,
     },
     capturedImage: {
-        marginVertical: Metrics.defaultMargin
+        marginVertical: Metrics.defaultMargin,
     },
     cameraButtons: {
-        flexDirection: "row",
+        flexDirection: 'row',
         paddingVertical: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "black"
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+    },
+    noPermissionContainer: {
+        flex: 1,
+        marginTop: 60,
     },
     noPermissionText: {
         color: Colors.white,
-        textAlign: "center"
-    }
+        textAlign: 'center',
+    },
 });

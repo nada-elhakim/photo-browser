@@ -1,12 +1,12 @@
-import "react-native";
-import React from "react";
-import {FlatList} from "react-native";
-import MyPhotos, {Loading} from "../app/screens/MyPhotos/MyPhotos";
-import AppContext from "../app/context/AppContext";
-import renderer from "react-test-renderer";
+import 'react-native';
+import React from 'react';
+import {FlatList} from 'react-native';
+import MyPhotos, {Loading} from '../app/screens/MyPhotos/MyPhotos';
+import AppContext from '../app/context/AppContext';
+import renderer from 'react-test-renderer';
 
 describe('<MyPhotos />', () => {
-    let props;
+    let testProps;
     let myPhotosInst;
 
     const MY_PHOTOS = [
@@ -15,16 +15,16 @@ describe('<MyPhotos />', () => {
             photo: {
                 uri: '',
                 width: 300,
-                height: 300
-            }
-        }
+                height: 300,
+            },
+        },
     ];
 
     const DEFAULT_CONTEXT = {
         myPhotos: MY_PHOTOS,
         loadPhotos: jest.fn(),
         uploadPhoto: jest.fn(),
-        deletePhoto: jest.fn()
+        deletePhoto: jest.fn(),
     };
 
     const createTestProps = (props: Object) => ({
@@ -32,14 +32,14 @@ describe('<MyPhotos />', () => {
             navigate: jest.fn(),
             setParams: jest.fn(),
         },
-        ...props
+        ...props,
     });
 
     beforeEach(() => {
-        props = createTestProps({});
+        testProps = createTestProps({});
         myPhotosInst = renderer.create(
             <AppContext.Provider value={DEFAULT_CONTEXT}>
-                <MyPhotos {...props}/>
+                <MyPhotos {...testProps}/>
             </AppContext.Provider>
         );
     });
@@ -47,12 +47,12 @@ describe('<MyPhotos />', () => {
     it('Should load myPhotos when component mount', () => {
         const context = {
             myPhotos: null,
-            loadPhotos: jest.fn()
+            loadPhotos: jest.fn(),
         };
 
         renderer.create(
             <AppContext.Provider value={context}>
-                <MyPhotos {...props}/>
+                <MyPhotos {...testProps}/>
             </AppContext.Provider>
         );
 
@@ -62,12 +62,12 @@ describe('<MyPhotos />', () => {
     it('Should render loader component when context.myPhotos is null', () => {
         const context = {
             myPhotos: null,
-            loadPhotos: jest.fn()
+            loadPhotos: jest.fn(),
         };
 
         const inst = renderer.create(
             <AppContext.Provider value={context}>
-                <MyPhotos {...props}/>
+                <MyPhotos {...testProps}/>
             </AppContext.Provider>
         );
 

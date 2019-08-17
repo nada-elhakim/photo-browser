@@ -7,8 +7,8 @@ class ResponsiveImage extends Component {
     state = {
         size: {
             width: null,
-            height: null
-        }
+            height: null,
+        },
     };
 
     componentDidMount() {
@@ -50,8 +50,8 @@ class ResponsiveImage extends Component {
         this.setState({
             size: {
                 width: sourceWidth * ratio,
-                height: sourceHeight * ratio
-            }
+                height: sourceHeight * ratio,
+            },
         });
     }
 }
@@ -60,6 +60,6 @@ export default ResponsiveImage;
 
 ResponsiveImage.propTypes = {
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
 };
 

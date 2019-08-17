@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
     View,
     TouchableNativeFeedback,
@@ -6,19 +6,19 @@ import {
     ActivityIndicator,
     Platform,
     StyleSheet,
-    Keyboard
-} from "react-native";
-import Colors from "../../variables/Colors";
-import Metrics from "../../variables/Metrics";
-import PropTypes from "prop-types";
+    Keyboard,
+} from 'react-native';
+import Colors from '../../variables/Colors';
+import Metrics from '../../variables/Metrics';
+import PropTypes from 'prop-types';
 
 class Button extends Component {
     static defaultProps = {
-        TouchableComponent:  Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity,
-        onPress: () => console.log("Please attach a method to this component"),
+        TouchableComponent:  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity,
+        onPress: () => console.log('Please attach a method to this component'),
         disabled: false,
         loading: false,
-        transparent: false
+        transparent: false,
     };
 
     render() {
@@ -41,7 +41,7 @@ class Button extends Component {
                 <TouchableComponent
                     onPress={this.onButtonPress.bind(this)}
                     disabled={disabled}
-                    underlayColor={transparent ? "transparent" : Colors.buttonUnderlayColor}
+                    underlayColor={transparent ? 'transparent' : Colors.buttonUnderlayColor}
                     activeOpacity={transparent ? 0.2 : undefined}>
                     <ViewComponent
                         style={[
@@ -50,8 +50,8 @@ class Button extends Component {
                             buttonStyle,
                             disabled && styles.disabled,
                             disabled && disabledStyle,
-                            headerButton && { backgroundColor: "transparent", height: undefined },
-                            transparent && { backgroundColor: "transparent", elevation: 0 },
+                            headerButton && { backgroundColor: 'transparent', height: undefined },
+                            transparent && { backgroundColor: 'transparent', elevation: 0 },
                         ]}>
                         {children}
                         {loading && <ActivityIndicator color={Colors.white} style={styles.indicatorStyle}/>}
@@ -85,26 +85,26 @@ Button.propTypes = {
 
 const styles = StyleSheet.create({
     button: {
-        flexDirection: "row",
-        justifyContent: "center",
+        flexDirection: 'row',
+        justifyContent: 'center',
         height: Metrics.buttonHeight,
-        alignItems: "center",
+        alignItems: 'center',
         borderRadius: Metrics.buttonBorderRadius,
         backgroundColor: Colors.light,
-        position: "relative"
+        position: 'relative',
     },
     disabled: {
         backgroundColor: Colors.primary,
     },
     transparentTitle: {
-        color: Colors.buttonTransparentTitleColor
+        color: Colors.buttonTransparentTitleColor,
     },
     title: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
         color: Colors.buttonTitleColor,
         fontSize: 16,
-        textAlign: "center",
-        padding: 8
+        textAlign: 'center',
+        padding: 8,
     },
     disabledTitle: {
         color: Colors.buttonDisabledColor,
@@ -113,9 +113,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
     },
     indicatorStyle: {
-        position: "absolute",
+        position: 'absolute',
         right: 16,
-        top: Metrics.buttonHeight / 3.5
-    }
+        top: Metrics.buttonHeight / 3.5,
+    },
 });
 
